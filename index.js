@@ -1,5 +1,6 @@
 const express = require('express');
 const logger = require('morgan');
+const cines = require('./routes/cines');
 const movies = require('./routes/movies');
 const users = require('./routes/users');
 const bodyParser = require('body-parser');
@@ -21,6 +22,9 @@ app.use('/users', users);
 
 // private route
 app.use('/movies', validateUser, movies);
+
+app.use('/cines', validateUser, cines);
+
 app.get('/favicon.ico', function (req, res) {
     res.sendStatus(204);
 });
@@ -48,7 +52,7 @@ app.use(function (err, req, res, next) {
     console.log(err);
 
     if (err.status === 404)
-        res.status(404).json({ message: "Not found" });
+        res.status(404).json({ message: "Resource Not found teste" });
     else
         res.status(500).json({ message: "Something looks wrong :( !!!" });
 });
